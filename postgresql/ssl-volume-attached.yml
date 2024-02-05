@@ -1,0 +1,14 @@
+version: '3.1'
+services:
+  db:
+    image: postgres:14.10-alpine3.19
+    command: -c ssl=on -c ssl_cert_file=/var/lib/postgresql/server.crt -c ssl_key_file=/var/lib/postgresql/server.key
+    restart: always
+    env_file:
+      - .env
+    ports:
+      - 5432:5432
+    volumes:
+       - ./data:/var/lib/postgresql/data
+       - ./ca/server.crt:/var/lib/postgresql/server.crt
+       - ./ca/server.key:/var/lib/postgresql/server.key
